@@ -19,4 +19,6 @@ The tokenizer is trained on a dataset 10m characters of odia text.
 The link to the huggingface model is https://huggingface.co/spaces/amlanr66/OdiaBPETokenizer
 
 Sample input text on Huggingface space showing compression ratio
+
+
 ![HuggingFaceApp](https://github.com/user-attachments/assets/7da320fa-502f-45a7-9503-c83da25fde76)

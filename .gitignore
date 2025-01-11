@@ -27,3 +27,6 @@ __pycache__/
 
 #PEM
 *.pem
+
+#JPG
+*.jpg

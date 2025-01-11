@@ -1,4 +1,4 @@
-#Odia Text BPE Tokenizer
+# Odia Text BPE Tokenizer
 
 This is a simple implementation of a BPE tokenizer for Odia text. It uses the `OdiaBPETokenizer` class to encode and decode text. The tokenizer is trained on a dataset of Odia text and saves the result to `odia_tokenizer.json`file.
 

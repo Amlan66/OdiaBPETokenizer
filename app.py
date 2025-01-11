@@ -5,8 +5,8 @@ from odiatokenizer import OdiaBPETokenizer
 # Load the tokenizer from the JSON file
 def load_tokenizer():
     with open('odia_tokeniser.json', 'r', encoding='utf-8') as f:
-        token_to_id = json.load(f)
-    return OdiaBPETokenizer.from_token_to_id(token_to_id)
+        id_to_token = json.load(f)
+    return OdiaBPETokenizer.from_id_to_token(id_to_token)
 
 tokenizer = load_tokenizer()
 

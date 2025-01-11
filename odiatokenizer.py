@@ -22,11 +22,11 @@ class OdiaBPETokenizer:
         self.odia_word_pattern = re.compile(r""" ?[\u0B00-\u0B7F]+[^\sA-Za-z0-9]*| [^\sA-Za-z0-9]+| \s+(?!\S)| \s+""")
         
     @classmethod
-    def from_token_to_id(cls, token_to_id: Dict[str, int]):
-        """Alternative constructor to initialize with a pre-existing token_to_id mapping."""
+    def from_id_to_token(cls, id_to_token: Dict[int, str]):
+        """Alternative constructor to initialize with a pre-existing id_to_token mapping."""
         instance = cls(vocab_size=0)  # vocab_size is irrelevant here
-        instance.token_to_id = token_to_id
-        instance.id_to_token = {v: k for k, v in token_to_id.items()}
+        instance.id_to_token = id_to_token
+        instance.token_to_id = {v: k for k, v in id_to_token.items()}
         return instance
 
     def set_odia_characters(self):
@@ -61,7 +61,7 @@ class OdiaBPETokenizer:
 
         self.base_vocab.update(odia_characters)
         self.base_vocab.update([    
-            ' ', '\n', '\t'  # Whitespace characters
+            ' ', '\n', '\t','-'  # Whitespace characters
         ])
         
 
@@ -129,7 +129,7 @@ class OdiaBPETokenizer:
 
         # Save the tokens to a JSON file
         logging.info("Saving tokens to JSON file...")
-        with open('odia_tokeniser.json', 'w', encoding='utf-8') as f:
+        with open('odia_tokenizer.json', 'w', encoding='utf-8') as f:
             json.dump(self.id_to_token, f, ensure_ascii=False, indent=4)
         logging.info("Training completed and tokens saved.")
 
@@ -144,11 +144,13 @@ class OdiaBPETokenizer:
                 for j in range(len(word), i, -1):
                     subword = ''.join(word[i:j])
                     if subword in self.token_to_id:
+                        print(f"Matched subword: '{subword}' -> {self.token_to_id[subword]}")
                         tokens.append(self.token_to_id[subword])
                         i = j
                         break
                 else:
                     # If no subword is found, use <UNK>
+                    logging.debug(f"Subword not found, using <UNK> for: '{word[i]}'")
                     tokens.append(self.special_tokens['<UNK>'])
                     i += 1
         return tokens
@@ -158,7 +160,7 @@ class OdiaBPETokenizer:
         return ''.join(self.id_to_token[token_id] for token_id in token_ids if token_id in self.id_to_token)
 
 def main():
-    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+    logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
     
     # Read the dataset and trigger the training process
     logging.info("Reading dataset...")

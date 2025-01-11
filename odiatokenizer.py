@@ -21,6 +21,14 @@ class OdiaBPETokenizer:
         #Odia word pattern to extract words from the dataset, it would exclude english characters and numbers
         self.odia_word_pattern = re.compile(r""" ?[\u0B00-\u0B7F]+[^\sA-Za-z0-9]*| [^\sA-Za-z0-9]+| \s+(?!\S)| \s+""")
         
+    @classmethod
+    def from_token_to_id(cls, token_to_id: Dict[str, int]):
+        """Alternative constructor to initialize with a pre-existing token_to_id mapping."""
+        instance = cls(vocab_size=0)  # vocab_size is irrelevant here
+        instance.token_to_id = token_to_id
+        instance.id_to_token = {v: k for k, v in token_to_id.items()}
+        return instance
+
     def set_odia_characters(self):
         odia_characters = [
             # Vowels
@@ -154,7 +162,7 @@ def main():
     
     # Read the dataset and trigger the training process
     logging.info("Reading dataset...")
-    with open('monolingual.final', 'r', encoding='utf-8') as file:
+    with open('monolingual4.final', 'r', encoding='utf-8') as file:
         dataset = file.read()
     logging.info("Dataset read successfully.")
 

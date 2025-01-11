@@ -4,10 +4,10 @@ env/
 .venv/
 
 # Ignore dataset files
-monolingual.final
+*.final
 
 # Ignore training output files
-train.or
+*.or
 
 # Ignore Python cache files
 __pycache__/

@@ -1,0 +1,26 @@
+# Ignore virtual environment directories
+venv/
+env/
+.venv/
+
+# Ignore dataset files
+monolingual.final
+
+# Ignore training output files
+train.or
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore logs
+*.log
+
+# Ignore IDE specific files
+.idea/
+.vscode/
+*.swp
